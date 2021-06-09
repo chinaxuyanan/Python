@@ -1,13 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 
-
+#获取源代码
 def download_page(url):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0"}
     r = requests.get(url, headers=headers)
     return r.text
 
-
+#从源代码获取关键信息
 def get_content(html, page):
     output = """第{}页 作者：{} 性别：{} 年龄：{} 点赞：{} 评论：{}\n{}\n------------\n"""
     soup = BeautifulSoup(html, 'html.parser')
@@ -35,7 +35,7 @@ def get_content(html, page):
 
         save_txt(output.format(page, author, gender, age, vote, comment, content))
 
-
+#保存文件至qiubai.txt
 def save_txt(*args):
     for i in args:
         with open('qiubai.txt', 'a', encoding='utf-8') as f:
